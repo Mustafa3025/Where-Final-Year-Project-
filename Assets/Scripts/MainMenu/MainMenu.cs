@@ -14,6 +14,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _singlePlayerMenu;
     [SerializeField] private GameObject _multiPlayerMenu;
 
+    [SerializeField] private GameObject _tutorialMenu;
+    [SerializeField] private GameObject _characterSelectionMenu;
+
     [Header("First Selected Options")]
     [SerializeField] private GameObject _optionsMenuFirst;
     [SerializeField] private GameObject _settingsMenuFirst;
@@ -22,7 +25,19 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _singlePlayerMenuFirst;
     [SerializeField] private GameObject _multiPlayerMenuFirst;
 
+    [SerializeField] private GameObject _tutorialFirst;
+    [SerializeField] private GameObject _characterSelectionFirst;
 
+    //[SerializeField] public static int characterIndex;
+    [SerializeField] private static int characterIndex = 0;
+
+    public static int ChosenCharacterIndex
+    {
+        get
+        {
+            return characterIndex;
+        }
+    }
 
     public void Play()
     {
@@ -79,7 +94,42 @@ public class MainMenu : MonoBehaviour
         SafeSelect(_multiPlayerMenuFirst);
     }
 
+    public void CharacterSelectorFirst()
+    {
+        SafeSelect(_characterSelectionFirst);
+    }
+    public void TutorialFirst()
+    {
+        SafeSelect(_tutorialFirst);
+    }
 
+    /*
+    public void Tutorial()
+    {
+        SafeSelect(_tutorialPage);
+    }
+
+    public void CharacterSelection()
+    {
+        SafeSelect(_characterSelection);
+    }
+
+    */
+
+
+
+    public void OpenCharacterSelectionScreen()
+    {
+        SafeSetActive(_singlePlayerMenu, false);
+        SafeSetActive(_characterSelectionMenu, true);
+
+    }
+
+    public void OpenTutorialScreen()
+    {
+        SafeSetActive(_playMenu, false);
+        SafeSetActive(_tutorialMenu, true);
+    }
 
 
     public void OpenOptionsMenuIngame()
@@ -136,6 +186,8 @@ public class MainMenu : MonoBehaviour
         SafeSetActive(_settingsMenu, false);
         SafeSetActive(_singlePlayerMenu, false);
         SafeSetActive(_multiPlayerMenu, false);
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
         /*
         _playMenu.SetActive(true);
         _optionsMenu.SetActive(false);
@@ -190,5 +242,22 @@ public class MainMenu : MonoBehaviour
         _inGameMenuObject.SetActive(false);
     }
 
+
+    public void CharacterIndexSettor1()
+    {
+        characterIndex = 1;
+        Debug.Log("You have choosen character 1");
+    }
+    public void CharacterIndexSettor2()
+    {
+        characterIndex = 2;
+        Debug.Log("You have choosen character 2");
+    }
+
+    public void CharacterIndexSettor3()
+    {
+        characterIndex = 3;
+        Debug.Log("You have choosen character 3");
+    }
 
 }

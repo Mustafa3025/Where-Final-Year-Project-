@@ -6,6 +6,9 @@ using UnityEngine.ProBuilder;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField] private int PlayerCharacterIndex;
+
     private PlayerInput PlayerInput;
 
     public Rigidbody rb;
@@ -195,6 +198,8 @@ public class PlayerController : MonoBehaviour
     //Hidding mouse icon in the game view window so it doesnt look wierd and annoying
     void Start()
     {
+        PlayerCharacterIndex = MainMenu.ChosenCharacterIndex;
+        Debug.Log("Character Choosen" + PlayerCharacterIndex);
         PlayerInput = GetComponent<PlayerInput>();
         interaction = GetComponentInChildren<PlayerInteraction>();
         BuffCollectionComponent = GetComponent<BuffCollection>();

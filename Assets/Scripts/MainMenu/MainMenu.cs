@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameObject _optionsMenu;
     [SerializeField] private GameObject _settingsMenu;
+    [SerializeField] private GameObject _settingsGraphicsMenu;
 
     [SerializeField] private GameObject _playMenu;
     [SerializeField] private GameObject _singlePlayerMenu;
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     [Header("First Selected Options")]
     [SerializeField] private GameObject _optionsMenuFirst;
     [SerializeField] private GameObject _settingsMenuFirst;
+    [SerializeField] private GameObject _settingsGraphicsFirst;
 
     [SerializeField] private GameObject _playMenuFirst;
     [SerializeField] private GameObject _singlePlayerMenuFirst;
@@ -80,6 +82,11 @@ public class MainMenu : MonoBehaviour
     {
         SafeSelect(_settingsMenuFirst);
     }
+    public void SettingsGraphicFirst()
+    {
+        SafeSelect(_settingsGraphicsFirst);
+    }
+
     public void PlayMenuFirst()
     {
         SafeSelect(_playMenuFirst);
@@ -102,19 +109,6 @@ public class MainMenu : MonoBehaviour
     {
         SafeSelect(_tutorialFirst);
     }
-
-    /*
-    public void Tutorial()
-    {
-        SafeSelect(_tutorialPage);
-    }
-
-    public void CharacterSelection()
-    {
-        SafeSelect(_characterSelection);
-    }
-
-    */
 
 
 
@@ -143,15 +137,22 @@ public class MainMenu : MonoBehaviour
     {
         SafeSetActive(_optionsMenu, false);
         SafeSetActive(_settingsMenu, true);
+        SafeSetActive(_settingsGraphicsMenu, false);
         SettingsMenuFirst();
     }
+
     public void OpenOptionsMenu()
     {
         SafeSetActive(_optionsMenu, true);
         SafeSetActive(_settingsMenu, false);
+        SafeSetActive(_settingsGraphicsMenu, false);
+
         SafeSetActive(_playMenu, false);
         SafeSetActive(_singlePlayerMenu, false);
         SafeSetActive(_multiPlayerMenu, false);
+
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
         /*
         _optionsMenu.SetActive(true);
         _settingsMenu.SetActive(false);
@@ -166,10 +167,15 @@ public class MainMenu : MonoBehaviour
     public void OpenSettingsMenu()
     {
         SafeSetActive(_settingsMenu, true);
+        SafeSetActive(_settingsGraphicsMenu, false);
+
         SafeSetActive(_optionsMenu, false);
         SafeSetActive(_playMenu, false);
         SafeSetActive(_singlePlayerMenu, false);
         SafeSetActive(_multiPlayerMenu, false);
+
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
         /*
         _settingsMenu.SetActive(true);
         _optionsMenu.SetActive(false);
@@ -179,13 +185,36 @@ public class MainMenu : MonoBehaviour
         SettingsMenuFirst();
     }
 
+
+
+
+    public void OpenSettingsGraphicsMenu()
+    {
+        SafeSetActive(_settingsGraphicsMenu, true);
+        SafeSetActive(_settingsMenu, false);
+
+        SafeSetActive(_optionsMenu, false);
+        SafeSetActive(_playMenu, false);
+        SafeSetActive(_singlePlayerMenu, false);
+        SafeSetActive(_multiPlayerMenu, false);
+
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
+
+        SettingsGraphicFirst();
+    }
+
+
     public void OpenPlayMenu()
     {
         SafeSetActive(_playMenu, true);
         SafeSetActive(_optionsMenu, false);
         SafeSetActive(_settingsMenu, false);
+        SafeSetActive(_settingsGraphicsMenu, false);
+
         SafeSetActive(_singlePlayerMenu, false);
         SafeSetActive(_multiPlayerMenu, false);
+
         SafeSetActive(_tutorialMenu, false);
         SafeSetActive(_characterSelectionMenu, false);
         /*
@@ -205,6 +234,12 @@ public class MainMenu : MonoBehaviour
         SafeSetActive(_settingsMenu, false);
         SafeSetActive(_playMenu, false);
         SafeSetActive(_multiPlayerMenu, false);
+
+
+        SafeSetActive(_settingsGraphicsMenu, false);
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
+
         /*
         _singlePlayerMenu.SetActive(true);
         _optionsMenu.SetActive(false);
@@ -222,6 +257,11 @@ public class MainMenu : MonoBehaviour
         SafeSetActive(_settingsMenu, false);
         SafeSetActive(_playMenu, false);
         SafeSetActive(_singlePlayerMenu, false);
+
+        SafeSetActive(_settingsGraphicsMenu, false);
+        SafeSetActive(_tutorialMenu, false);
+        SafeSetActive(_characterSelectionMenu, false);
+
         MultiPlayerMenuFirst();
         /*
         _multiPlayerMenu.SetActive(true);

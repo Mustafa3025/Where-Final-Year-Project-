@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
     {
     //jump = context.ReadValue<Vector2>();
         Jump();
-        //Debug.Log("OnJump Called");
+        Debug.Log("OnJump Called");
 
     }
 

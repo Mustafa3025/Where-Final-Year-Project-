@@ -8,13 +8,14 @@ public class Timer : MonoBehaviour
     float elapsedTime;
     [SerializeField] TextMeshProUGUI remainingTimeText;
     [SerializeField] float remainingTime;
-    [SerializeField] bool elaspedTimeFlag = false;
+    [SerializeField] bool elaspedTimeFlag = true;
     [SerializeField] bool remainingTimeFlag = true;
 
     [SerializeField] GameObject elaspedTimeTextOBJ;
     [SerializeField] GameObject remainingTimeTextOBJ;
 
     [SerializeField] private bool gameStartFlag = false;
+
 
     void Update()
     {

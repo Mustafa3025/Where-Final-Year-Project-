@@ -57,8 +57,8 @@ Material:
     m_Floats:
     - _SoftParticlesEnabled: 1
     m_Colors:
-    - _BaseColor: {r: 6.347921, g: 6.347921, b: 6.347921, a: 1}
-    - _Color: {r: 6.3479214, g: 6.3479214, b: 6.3479214, a: 1}
+    - _BaseColor: {r: 0.9926071, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.99260706, g: 0, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -341,7 +341,7 @@
                     "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Gamepad",
                     "action": "FlashLight",
                     "isComposite": false,
                     "isPartOfComposite": false

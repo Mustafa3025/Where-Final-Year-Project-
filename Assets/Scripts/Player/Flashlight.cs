@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class Flashlight : MonoBehaviour
 {
 
@@ -27,6 +27,22 @@ public class Flashlight : MonoBehaviour
         isOn = false;
     }
 
+
+    public void ToggleFlashlightInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+        else
+        {
+            isOn = !isOn;
+            ON.SetActive(isOn);
+            OFF.SetActive(!isOn);
+        }
+    }
+
+    /*
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.F))
@@ -40,11 +56,14 @@ public class Flashlight : MonoBehaviour
             {
                 OFF.SetActive(false);
                 ON.SetActive(true);
-                isOn = false;
+                isOn = false;       
             }
 
                 isOn = !isOn;
         }
 
     }
+    */
+
+
 }

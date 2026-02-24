@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -7,7 +8,12 @@ using UnityEngine.ProBuilder;
 public class PlayerController : MonoBehaviour
 {
 
+<<<<<<< Updated upstream
     [SerializeField] private int PlayerCharacterIndex;
+=======
+    [SerializeField] private int characterModelIndex;
+    [SerializeField] private GameObject[] characterModels;
+>>>>>>> Stashed changes
 
     private PlayerInput PlayerInput;
 
@@ -42,6 +48,22 @@ public class PlayerController : MonoBehaviour
     
     public bool inGameMenuPressedFlag = false;
 
+    private void ApplyCharacterSkin()
+    {
+        for (int i = 0; i < characterModels.Length; i++)
+        {
+            // Set active if this is the chosen one, otherwise set inactive
+            characterModels[i].SetActive(i == characterModelIndex);
+        }
+    }
+
+    private void Awake()
+    {
+        characterModelIndex = MainMenu.ChosenCharacterIndex;
+        ApplyCharacterSkin();
+    }
+
+
 
     public void CursorVisibility()
     {
@@ -51,16 +73,33 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = false;
         }
     }
- 
+
     public void ActionMapSwitchPlayer()
     {
         PlayerInput.SwitchCurrentActionMap("Player");
+        Debug.Log("Actionmap switched to Player");
     }
 
     public void ActionMapSwitchUI()
     {
         PlayerInput.SwitchCurrentActionMap("UI");
     }
+
+    /*
+    public void OpenMenu()
+    {
+        if (inGameMenu != null)
+            inGameMenu.SetActive(true);
+
+        SwitchToUIMap();
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        inGameMenuPressedFlag = true;
+    }*/
+
+  
 
     public void OnMenuTabDep_()
     {
@@ -123,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnFlashlight(InputAction.CallbackContext context)
     {
-
+        FlashLightComponent.ToggleFlashlightInput(context);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -156,6 +195,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -163,9 +204,25 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private bool usingController;
+
     public void OnLook(InputAction.CallbackContext context)
     {
-        look = context.ReadValue<Vector2>(); 
+        look = context.ReadValue<Vector2>();
+
+        if (context.control.device is UnityEngine.InputSystem.Mouse)
+        {
+            Debug.Log("Mouse Used to Look");
+            usingController = false;
+      
+        }
+
+        else 
+        {
+            Debug.Log("Controller Used to Look");
+            usingController = true;
+        }
+        //look = context.ReadValue<Vector2>(); 
         //Debug.Log("OnLook Called");
 
     }
@@ -177,29 +234,44 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /*
+    private void Awake()
+    {
+        PlayerInput = GetComponent<PlayerInput>();
+    }
+    */
+    //Hidding mouse icon in the game view window so it doesnt look wierd and annoying
+
+
     public void OnSprint(InputAction.CallbackContext context)
     {
         //sprinting = context.ReadValue<bool>();
-           
+
 
         if (context.performed)
         {
             sprintingFlag = true;
-                
-        }   
+
+        }
         else if (context.canceled)
         {
             sprintingFlag = false;
         }
- 
+
         //Debug.Log("OnSprint Called");
     }
 
-    //Hidding mouse icon in the game view window so it doesnt look wierd and annoying
     void Start()
     {
+<<<<<<< Updated upstream
         PlayerCharacterIndex = MainMenu.ChosenCharacterIndex;
         Debug.Log("Character Choosen" + PlayerCharacterIndex);
+=======
+        characterModelIndex = MainMenu.ChosenCharacterIndex;
+        Debug.Log("Character Choosen" + characterModelIndex);
+
+
+>>>>>>> Stashed changes
         PlayerInput = GetComponent<PlayerInput>();
         interaction = GetComponentInChildren<PlayerInteraction>();
         BuffCollectionComponent = GetComponent<BuffCollection>();
@@ -293,13 +365,27 @@ public class PlayerController : MonoBehaviour
     // Also setting a range for the max and min vertical movement so the camera doesntflip into a 360
     void Look()
     {
-            
-        transform.Rotate(Vector3.up * look.x * sensitivity);
-            
-        lookRotation += (-look.y * sensitivity);
-        lookRotation = Mathf.Clamp(lookRotation, -90, 90);
-        camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
-            
+
+        if (usingController)
+        {
+            Vector2 stickLook = look * sensitivity * Time.deltaTime * 3000f;
+            transform.Rotate(Vector3.up * stickLook.x);
+
+            lookRotation += -stickLook.y;
+            lookRotation = Mathf.Clamp(lookRotation, -90f, 90f);
+            camHolder.transform.localEulerAngles = new Vector3(lookRotation, 0f, 0f);
+        
+        }
+        else
+        {
+            transform.Rotate(Vector3.up * look.x * sensitivity);
+
+            lookRotation += (-look.y * sensitivity);
+            lookRotation = Mathf.Clamp(lookRotation, -90, 90);
+            camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
+
+        }
+
         //Debug.Log($"Look Input: {look}");
 
     }
@@ -311,6 +397,7 @@ public class PlayerController : MonoBehaviour
         if (groundedFlag)
         {
             jumpForces = Vector3.up * jumpForce;
+            //groundedFlag = false;
         }
         rb.AddForce(jumpForces, ForceMode.Impulse);         
     
@@ -340,7 +427,7 @@ public class PlayerController : MonoBehaviour
     //Generally a good practice (making the camera move after the player moves)
     void LateUpdate()
     {
-           // Look();
+            //Look();
             CursorVisibility();
             //OnMenuTab(); Old part when the code used Fixed Keyboard binding
             //Debug.Log("Late Update is running");

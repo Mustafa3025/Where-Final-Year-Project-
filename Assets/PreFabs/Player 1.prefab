@@ -905,13 +905,8 @@ GameObject:
   - component: {fileID: 5013256571318270979}
   - component: {fileID: 7226065159316343827}
   - component: {fileID: 8102172266101959126}
-<<<<<<< Updated upstream
-  - component: {fileID: 1402267788270198134}
-  - component: {fileID: 4810377088823819310}
-=======
   - component: {fileID: 4810377088823819310}
   - component: {fileID: 1402267788270198134}
->>>>>>> Stashed changes
   - component: {fileID: 8256764919950746171}
   - component: {fileID: 161555213734186489}
   - component: {fileID: 4299443096006413827}
@@ -993,41 +988,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
-<<<<<<< Updated upstream
---- !u!114 &1402267788270198134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828768771975755567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50cf743986437f84aabc9e4f795e44b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerCharacterIndex: 0
-  rb: {fileID: 8102172266101959126}
-  camHolder: {fileID: 1238829092710013927}
-  cam: {fileID: 233261753638594407}
-  interaction: {fileID: 0}
-  flashlightIsOn: 0
-  flashlightRange: 60
-  speedNormal: 8
-  speedSprint: 5
-  sensitivity: 0.1
-  maxForce: 1
-  jumpForce: 4
-  _buffSpeedValue: 0
-  _buffVisionValue: 0
-  _buffVisionFlag: 0
-  inGameMenu: {fileID: 0}
-  inGameMenuClass: {fileID: 0}
-  groundedFlag: 0
-  sprintingFlag: 0
-  inGameMenuPressedFlag: 0
-=======
->>>>>>> Stashed changes
 --- !u!114 &4810377088823819310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,8 +1154,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!114 &1402267788270198134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,7 +1186,6 @@ MonoBehaviour:
   groundedFlag: 0
   sprintingFlag: 0
   inGameMenuPressedFlag: 0
->>>>>>> Stashed changes
 --- !u!114 &8256764919950746171
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,29 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-<<<<<<< Updated upstream
-using UnityEditor.UI;
-=======
->>>>>>> Stashed changes
-
 public class MazeRenderer : MonoBehaviour
 {
     [SerializeField] MazeGeneratorUno mazeGenerator;
     [SerializeField] GameObject MazeCellPrefab;
-<<<<<<< Updated upstream
-
-    public Vector3 mazeOrigin = Vector3.zero;
-
-
-
-    public float cellSize = 1f;
-
-    private void Start()
-    {
-=======
-    [SerializeField] float mazeScale = 5f;
+    //[SerializeField] float mazeScale = 5f;
     public Vector3 mazeOrigin = Vector3.zero;
     public float cellSize = 1f;
+
+
+
+    //[SerializeField] GameObject objectPrefab;
+    [SerializeField] GameObject[] spawnObjects;
+    [SerializeField] float spawnChance = 0.2f;  
+    [SerializeField] float objectHeight = 2f;   
 
 
     private void Start()
@@ -31,7 +22,6 @@ public class MazeRenderer : MonoBehaviour
         //transform.localScale = 
 
 
->>>>>>> Stashed changes
         MazeCell[,] maze = mazeGenerator.GetMaze();
 
         for(int x = 0; x < mazeGenerator.mazeWidth; x++)
@@ -41,13 +31,30 @@ public class MazeRenderer : MonoBehaviour
                 //Instantiating a new cell prefab as a child of the maze rendeerere object
                 //GameObject newCell = Instantiate(MazeCellPrefab, new Vector3((float)x * cellSize, 0f, (float)y * cellSize), Quaternion.identity, transform);
                 GameObject newCell = Instantiate(MazeCellPrefab, mazeOrigin +   new Vector3((float)x * cellSize, 0f, (float)y * cellSize), Quaternion.identity, transform);
-<<<<<<< Updated upstream
-
-=======
                 //newCell.transform.localScale = Vector3.one * mazeScale;
->>>>>>> Stashed changes
                 //getting reference to the cell's mazecellprefab script
                 MazeCellObject mazeCell = newCell.GetComponent<MazeCellObject>();
+
+                /*if (objectPrefab != null && Random.value <= spawnChance)
+                //if(objectPrefab != null && Random.value <= spawnChance && !(x == startX && y == startY))
+                {
+                    Vector3 spawnPos = newCell.transform.position + Vector3.up * objectHeight;
+
+                    Instantiate(objectPrefab, spawnPos, Quaternion.identity, newCell.transform);
+                  
+                }*/
+
+                if (spawnObjects.Length > 0 && Random.value <= spawnChance)
+                {
+                    int rnd = Random.Range(0, spawnObjects.Length);
+
+                    GameObject prefab = spawnObjects[rnd];
+
+                    Vector3 spawnPos = newCell.transform.position + Vector3.up * objectHeight;
+
+                    Instantiate(prefab, spawnPos, Quaternion.identity);
+                }
+
                 //Determine which walls are meant to stay active (not be broken/removeded)
                 bool top = maze[x, y].topWall;
                 bool left = maze[x, y].leftWall;
@@ -60,14 +67,14 @@ public class MazeRenderer : MonoBehaviour
                 if (y == 0) bottom = true;
 
                 mazeCell.Init(top, bottom, right, left);
+
+                //newCell.transform.localScale = Vector3.one * mazeScale;
             }
+
         }
-<<<<<<< Updated upstream
-=======
 
 
-        transform.localScale = Vector3.one * mazeScale;
+        //transform.localScale = Vector3.one * mazeScale;
       
->>>>>>> Stashed changes
     }
 }

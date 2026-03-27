@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
+    /*
     [Header("References")]
     [SerializeField] private PlayerController player;
     [SerializeField] private AudioSource audioSource;
@@ -16,5 +17,5 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private float velocityThreshold = 0.1f; // Min speed to play sound
 
     private float stepTimer;
-
+    */
 }

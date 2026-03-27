@@ -116,23 +116,16 @@ public class MainMenu : MonoBehaviour
     {
         SafeSetActive(_singlePlayerMenu, false);
         SafeSetActive(_characterSelectionMenu, true);
-<<<<<<< Updated upstream
-=======
         CharacterSelectorFirst();
->>>>>>> Stashed changes
 
     }
 
     public void OpenTutorialScreen()
     {
         SafeSetActive(_playMenu, false);
-<<<<<<< Updated upstream
-        SafeSetActive(_tutorialMenu, true);
-=======
         SafeSetActive(_optionsMenu, false);
         SafeSetActive(_tutorialMenu, true);
         TutorialFirst();
->>>>>>> Stashed changes
     }
 
 
@@ -295,15 +288,6 @@ public class MainMenu : MonoBehaviour
 
     public void CharacterIndexSettor1()
     {
-<<<<<<< Updated upstream
-        characterIndex = 1;
-        Debug.Log("You have choosen character 1");
-    }
-    public void CharacterIndexSettor2()
-    {
-        characterIndex = 2;
-        Debug.Log("You have choosen character 2");
-=======
         characterIndex = 0;
         Debug.Log("You have choosen character " + characterIndex);
     }
@@ -311,18 +295,12 @@ public class MainMenu : MonoBehaviour
     {
         characterIndex = 1;
         Debug.Log("You have choosen character " + characterIndex);
->>>>>>> Stashed changes
     }
 
     public void CharacterIndexSettor3()
     {
-<<<<<<< Updated upstream
-        characterIndex = 3;
-        Debug.Log("You have choosen character 3");
-=======
         characterIndex = 2;
         Debug.Log("You have choosen character " + characterIndex);
->>>>>>> Stashed changes
     }
 
 }

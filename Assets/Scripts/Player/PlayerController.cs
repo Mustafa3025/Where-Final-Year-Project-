@@ -8,12 +8,8 @@ using UnityEngine.ProBuilder;
 public class PlayerController : MonoBehaviour
 {
 
-<<<<<<< Updated upstream
-    [SerializeField] private int PlayerCharacterIndex;
-=======
     [SerializeField] private int characterModelIndex;
     [SerializeField] private GameObject[] characterModels;
->>>>>>> Stashed changes
 
     private PlayerInput PlayerInput;
 
@@ -47,6 +43,33 @@ public class PlayerController : MonoBehaviour
     //public bool speedBuff = GetComponent<BuffCollection>().BuffSpeedFlag;
     
     public bool inGameMenuPressedFlag = false;
+
+    /*public override void OnNetworkSpawn()
+    {
+        characterModelIndex = MainMenu.ChosenCharacterIndex;
+        Debug.Log("Character Choosen" + characterModelIndex);
+
+
+        PlayerInput = GetComponent<PlayerInput>();
+        interaction = GetComponentInChildren<PlayerInteraction>();
+        BuffCollectionComponent = GetComponent<BuffCollection>();
+        FlashLightComponent = GetComponentInChildren<Flashlight>();
+
+        //inGameMenuClass = GetComponent<MainMenu>();
+
+        flashlightRange = flashlight.range;
+
+        if (!IsOwner)
+        {
+            cam.enabled = false;            // disable camera
+            camHolder.SetActive(false);     // disable camera holder
+            PlayerInput.enabled = false;    // disable input
+            return;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Physics.gravity = new Vector3(0, -34f, 0);
+    }*/
 
     private void ApplyCharacterSkin()
     {
@@ -228,7 +251,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-    //jump = context.ReadValue<Vector2>();
+        //jump = context.ReadValue<Vector2>();
         Jump();
         Debug.Log("OnJump Called");
 
@@ -263,15 +286,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-<<<<<<< Updated upstream
-        PlayerCharacterIndex = MainMenu.ChosenCharacterIndex;
-        Debug.Log("Character Choosen" + PlayerCharacterIndex);
-=======
         characterModelIndex = MainMenu.ChosenCharacterIndex;
         Debug.Log("Character Choosen" + characterModelIndex);
 
 
->>>>>>> Stashed changes
         PlayerInput = GetComponent<PlayerInput>();
         interaction = GetComponentInChildren<PlayerInteraction>();
         BuffCollectionComponent = GetComponent<BuffCollection>();
@@ -283,6 +301,9 @@ public class PlayerController : MonoBehaviour
 
         flashlightRange = flashlight.range;
     }
+ 
+
+    
 
     //WASD movement
     void Move()
@@ -356,7 +377,8 @@ public class PlayerController : MonoBehaviour
         velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
 
         //limit Force
-        Vector3.ClampMagnitude(velocityChange, maxForce);
+        //Vector3.ClampMagnitude(velocityChange, maxForce);
+        velocityChange = Vector3.ClampMagnitude(velocityChange, maxForce);
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
             
     }
@@ -368,22 +390,47 @@ public class PlayerController : MonoBehaviour
 
         if (usingController)
         {
+            /*
             Vector2 stickLook = look * sensitivity * Time.deltaTime * 3000f;
             transform.Rotate(Vector3.up * stickLook.x);
 
             lookRotation += -stickLook.y;
             lookRotation = Mathf.Clamp(lookRotation, -90f, 90f);
             camHolder.transform.localEulerAngles = new Vector3(lookRotation, 0f, 0f);
-        
+            */
+            Vector2 stickLook = look * sensitivity * Time.deltaTime * 3000f;
+
+            //Rigidbody rotation instead of transform
+            Quaternion turnRotation = Quaternion.Euler(0f, stickLook.x, 0f);
+            rb.MoveRotation(rb.rotation * turnRotation);
+
+            //Vertical rotation (camera only)
+            lookRotation += -stickLook.y;
+            lookRotation = Mathf.Clamp(lookRotation, -90f, 90f);
+
+            camHolder.transform.localEulerAngles = new Vector3(lookRotation, 0f, 0f);
         }
         else
         {
+            /*
             transform.Rotate(Vector3.up * look.x * sensitivity);
 
             lookRotation += (-look.y * sensitivity);
             lookRotation = Mathf.Clamp(lookRotation, -90, 90);
             camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
+            */
+            float mouseX = look.x * sensitivity;
 
+            //Rigidbody rotation instead of transform
+            Quaternion turnRotation = Quaternion.Euler(0f, mouseX, 0f);
+            rb.MoveRotation(rb.rotation * turnRotation);
+
+            //Vertical rotation (camera only)
+            lookRotation += (-look.y * sensitivity);
+            lookRotation = Mathf.Clamp(lookRotation, -90f, 90f);
+
+            //Use LOCAL rotation (important fix)
+            camHolder.transform.localEulerAngles = new Vector3(lookRotation, 0f, 0f);
         }
 
         //Debug.Log($"Look Input: {look}");
@@ -404,16 +451,23 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    
     private void Update()
     {
         //Move();
-        Look();
+        //if (!IsOwner)
+        //{
+            Look();
+        // }
     }
 
     private void FixedUpdate()
     {
+        //if (!IsOwner)
+        //{
+
         Move();
+        //}
 
         //Jump();
     }
